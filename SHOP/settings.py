@@ -21,9 +21,9 @@ SECRET_KEY = 'l4)mlx%#ceircn$nc6oyi4w_7da(8$g-@t45^k%v3mi1h#bn12'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-DEBUG = True
+#DEBUG = True
 
-ALLOWED_HOSTS = ['ug-shop.herokuapp.com/','127.0.0.1']
+ALLOWED_HOSTS = ['ug-shop.herokuapp.com','127.0.0.1']
 #ALLOWED_HOSTS = ['127.0.0.1']
 
 
