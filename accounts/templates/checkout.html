@@ -1,0 +1,238 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<body class="grey lighten-3">
+
+  <!--Main layout-->
+  <main>
+    <div class="container wow fadeIn mt-2">
+
+      <!-- Heading -->
+      <!-- <h2 class="mt-2 h2 text-center">Checkout form</h2> -->
+
+
+      <!--Grid row-->
+      <div class="row">
+
+        <!--Grid column-->
+        <div class="col-md-8 mb-3 mt-5">
+
+<h2 class="mt-5 text-center">Fill in this form</h2>
+
+
+          <!--Card-->
+          <div class="card">
+
+            <!-- <form>
+              <!-- {% csrf_token %}
+              {{ form|crispy }} -->
+              <!-- <button class="btn btn-primary" type="submit">Checkout</button>
+            </form> -->
+
+            <!--Card content-->
+            <form method="post"class="card-body" action="/payment/">
+              {% csrf_token %}
+
+              <!--Grid row-->
+              <div class="row">
+
+                <!--Grid column-->
+                <!--Grid column-->
+                <div class="col-md-6 mb-2">
+
+                  <!--firstName-->
+                  <div class="md-form ">
+                      {{ form.firstname }}
+                    <!-- <input type="text" id="firstName" class="form-control"> -->
+                    <label for="firstName" class=""></label>
+                  </div>
+
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-md-6 mb-2">
+
+                  <!--lastName-->
+                  <div class="md-form">
+                        {{ form.lastname }}
+                    <!-- <input type="text" id="lastName" class="form-control"> -->
+                    <label for="lastName" class=""></label>
+                  </div>
+
+                </div>
+                <!--Grid column-->
+
+
+                <!--Grid column-->
+                <div class="col-md-6 mb-2">
+
+                  <!--lastName-->
+
+
+                </div>
+                <!--Grid column-->
+
+              </div>
+              <!--Grid row-->
+
+
+              <!--address-->
+              <div class="md-form mb-5">
+                {{ form.mobilenumber }}
+                <!-- <input type="number" id="number" class="form-control" placeholder="+256 *** *** ***"> -->
+                <label for="number" class=""></label>
+              </div>
+
+              <!--address-2-->
+              <div class="md-form mb-5">
+                {{ form.address }}
+                <!-- <input type="text" id="address" class="form-control" placeholder="Address"> -->
+                <label for="address" class=""></label>
+              </div>
+
+              <div class="md-form mb-5">
+                {{ form.town }}
+                <!-- <input type="text" id="district" class="form-control" placeholder="district/town"> -->
+                <label for="district/town" class=""></label>
+              </div>
+
+              <!--Grid row-->
+              <div class="row">
+
+                <!--Grid column-->
+                <!-- <div class="col-lg-4 col-md-12 mb-4">
+
+                  <label for="region">Region</label>
+                  <select class="custom-select d-block w-100" id="country" required>
+                    <option value="">Choose...</option>
+                    <option>Eastern</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    Please select a valid region.
+                  </div>
+
+                </div> -->
+                <!--Grid column-->
+
+
+                <!--Grid column-->
+
+              </div>
+              <!--Grid row-->
+
+              <hr>
+
+              <div class="custom-control custom-checkbox">
+                {{ form.save_info }}
+                <input {% if form.save_info.value %} checked {% endif %} type="checkbox" class="custom-control-input" name="save-info" id="save-info">
+                <label class="custom-control-label" for="save-info">Save this information for next time</label>
+              </div>
+
+              <hr>
+          <h2>Payment Method</h2>
+              <div class="d-block my-3">
+                {% for value, name in form.fields.payment_option.choices %}
+                <div class="custom-control custom-radio">
+                  <input id="{{ name }}" name="payment_option" value="{{ value }}" type="radio" class="custom-control-input" required>
+                  <label class="custom-control-label" for="{{ name }}">{{ name }}</label>
+                </div>
+                {% endfor %}
+                <!-- <div class="custom-control custom-radio">
+                  <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
+                  <label class="custom-control-label" for="debit">Cash on Delivery</label>
+                </div> -->
+
+              </div>
+
+              <div class="row">
+
+              </div>
+              <hr class="mb-4">
+
+              <button class="btn btn-primary btn-lg btn-block" type="submit">Confirm Order</button>
+
+            </form>
+
+          </div>
+          <!--/.Card-->
+
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-md-4 mb-4 mt-5">
+
+          <!-- Heading -->
+          <h4 class="d-flex justify-content-between align-items-center mb-3 mt-5">
+            <span class="text-muted">Your cart</span>
+            <span class="badge badge-info badge-pill">{{ order.items.count }}</span>
+          </h4>
+
+          <!-- Cart -->
+          <ul class="list-group mb-3 z-depth-1">
+            {% for order_item in order.items.all %}
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+              <div>
+                <h6 class="my-0">{{ order_item.quantity }} * {{ order_item.item.title }}</h6>
+                <small class="text-muted">{{ order_item.item.description }}<img src="/static/images/{{ order_item.item.image }}" height=100 width=100></small>
+              </div>
+              <hr>
+              <span class="text-muted">{{ order_item.get_final_price }}</span>
+            </li>
+            {% endfor %}
+             <!-- {% if order.coupon %} -->
+            <!-- <li class="list-group-item d-flex justify-content-between bg-light">
+              <div class="text-success">
+                <h6 class="my-0">Promo code</h6>
+                <small>{{ order.coupon.code }}</small>
+              </div>
+              <span class="text-success">-Ugx{{ order.coupon.amount }}</span>
+             </li> -->
+             <!-- {% endif %} -->
+              <li class="list-group-item d-flex justify-content-between">
+              <span>Total Ugx</span>
+              <strong>{{ order.get_total }}</strong>
+            </li>
+            <li class="list-group-item d-flex justify-content-between bg-light">
+              <div class="text-success">
+                <h6 class="my-0">Promo code</h6>
+                <small>{{ order.coupon.code }}</small>
+              </div>
+              <span class="text-success">-0.0{{ order.coupon.amount }}</span>
+               </li>
+          </ul>
+          <!-- Cart -->
+          <!-- Promo code -->
+          <!-- {% if DISPLAY_COUPON_FORM %} -->
+          <!-- <form class="card p-2" action="" method="post"> -->
+
+          <form class="card p-2" action="{% url 'accounts:add-coupon' %}" method="post">
+              {% csrf_token %}
+               <div class="input-group">
+                  {{ couponform.code }}
+              <!-- <input type="text" class="form-control" placeholder="Promo code" aria-label="Recipient's username" aria-describedby="basic-addon2"> -->
+                    <div class="input-group-append">
+                    <button class="btn btn-info btn-md waves-effect m-0" type="submit">Redeem</button>
+                    </div>
+                </div>
+          </form>
+           <!-- {% endif %} -->
+          <!-- Promo code -->
+
+        </div>
+        <!--Grid column-->
+
+      </div>
+      <!--Grid row-->
+
+    </div>
+  </main>
+  <!--Main layout-->
+
+</body>
+
+{% endblock %}

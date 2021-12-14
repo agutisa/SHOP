@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+  <!--Main layout-->
+  <main>
+    <div class="container mb-5">
+<br>
+<br>
+<br>
+
+      <div class="table-responsive text-nowrap">
+
+        <h2 class="mt-5">Order summary</h2>
+<hr>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Item</th>
+          <th scope="col">Item title</th>
+          <th scope="col">Price</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Total Item Price</th>
+
+      </thead>
+      <tbody>
+    {% for order_item in object.items.all %}
+        <tr>
+          <th scope="row">{{ forloop.counter }}</th>
+        <!-- <td> {{ order_item.item.image }} </td> -->
+        <td> <img src="/static/images/{{ order_item.item.image }}" height=100 width=100> </td>
+
+          <td>{{ order_item.item.title }}</td>
+          <td>{{ order_item.item.price }}</td>
+          <td>
+          <a href={% url 'accounts:remove-single-item-from-cart' order_item.item.slug %}>  <i class="fas fa-minus mr-2"></i></a>
+            {{ order_item.quantity }}
+          <a href={% url 'accounts:add-to-cart' order_item.item.slug %}>  <i class="fas fa-plus ml-2"></i></td></a>
+          <td>
+          {% if order_item.item.discount_price %}
+              Ugx{{ order_item.get_total_discount_item_price }}
+            <span class="badge badge-primary">Saving Ugx{{ order_item.get_amount_saved }}</span>
+          {% else %}
+            Ugx {{ order_item.get_total_item_price }}
+          {% endif %}
+          <a sytle'color: red;' href={% url 'accounts:remove-from-cart' order_item.item.slug %}>
+          <i class="fas fa-trash float-right"></i>
+          </td>
+          {% empty %}
+          <tr>
+            <td colspan="5">Your cart is empty</td>
+          </tr>
+          <tr colspan="5">
+            <td>
+              <a class='btn btn-primary float-right' href='/'>Continue Shopping </a>
+
+            </td>
+          </tr>
+    {% endfor %}
+     {% if object.coupon %}
+     <tr>
+       <td colspan="5"><b>Coupon</b></td>
+       <td><b>-Ugx{{ object.coupon.amount }}</b></td>
+     </tr>
+     {% endif %}
+      {% if object.get_total %}
+
+      <tr>
+        <td colspan="5"><b>Order Total</b></td>
+        <td><b>Ugx{{ object.get_total }}</b></td>
+      </tr>
+      <tr>
+        <td colspan="6">
+          <a class='btn btn-warning float-right ml-2' href='/checkout/'>Proceed to checkout </a>
+          <a class='btn btn-primary float-right' href='/'>Continue Shopping </a>
+        </td>
+      </tr>
+      {% endif %}
+      </tbody>
+    </table>
+
+  </div>
+</div>
+</main>
+
+
+{% endblock %}

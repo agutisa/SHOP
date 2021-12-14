@@ -1,0 +1,131 @@
+/* Required height of parents of the Half Page Carousel for proper displaying carousel itself */
+
+
+#A {
+  height: 6px;
+}
+
+#B {
+  height: 80px;
+}
+
+body {
+  text-align: center;
+}
+
+#search {
+  width: 357px;
+  margin: 4px auto;
+  text-align: center;
+  display: inline-block;
+}
+
+#search_text {
+  width: 297px;
+  padding: 15px 0 15px 20px;
+  font-size: 16px;
+  font-family: Montserrat, sans-serif;
+  border: 0 none;
+  height: 52px;
+  margin-right: 0;
+  color: white;
+  outline: none;
+  background: #1f7f5c;
+  float: left;
+  box-sizing: border-box;
+
+
+
+html,
+body,
+header,
+.carousel {
+  height: 60vh;
+}
+
+@media (max-width: 740px) {
+
+
+  html,
+  body,
+  header,
+  .carousel {
+    height: 100vh;
+  }
+}
+
+@media (min-width: 800px) and (max-width: 850px) {
+
+  html,
+  body,
+  header,
+  .carousel {
+    height: 100vh;
+  }
+}
+
+/* ul {
+position: fixed;
+top: 0;
+width: 100%;
+} */
+
+ul {
+position: -webkit-sticky; /* Safari */
+position: sticky;
+top: 0;
+}
+
+
+
+html,
+body,
+.view {
+  height: 100%; }
+
+/* Half Page Carousel itself*/
+.carousel {
+  height: 50%; }
+  .carousel .carousel-inner {
+    height: 100%; }
+    .carousel .carousel-inner .carousel-item,
+    .carousel .carousel-inner .active {
+      height: 100%; }
+
+/* Adjustment for mobile devices*/
+@media (max-width: 776px) {
+  .carousel {
+    height: 100%; } }
+
+/* Footer color for sake of consistency with Navbar */
+/* .page-footer {
+  background-color: #000; } */
+.page-footer {
+     position: fixed;
+     left: 0;
+     bottom: 0;
+     width: 100%;
+     background-color: red;
+     color: white;
+     text-align: center;
+  }
+
+  @media (min-width: 992px)
+  .col-lg-3 {
+      -ms-flex: 0 0 25%;
+      flex: 0 0 16%;
+      max-width: 25%;
+  }
+  @media (min-width: 768px)
+  .col-md-6 {
+      -ms-flex: 0 0 50%;
+      flex: 0 0 30%;
+      max-width: 50%;
+  }
+
+  @media (min-width: 768px)
+.col-md-6 {
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 50%;
+}

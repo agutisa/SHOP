@@ -1,0 +1,14 @@
+.view,body,html{height:100%}
+.carousel{height:50%}
+.carousel .carousel-inner,.carousel .carousel-inner .active,.carousel .carousel-inner
+.carousel-item{height:100%}@media (max-width:776px){.carousel{height:100%}}
+/* .page-footer{background-color:#red;} */
+.page-footer {
+     position: fixed;
+     left: 0;
+     bottom: 0;
+     width: 100%;
+     background-color: red;
+     color: white;
+     text-align: center;
+  }
